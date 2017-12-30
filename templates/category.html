@@ -1,0 +1,35 @@
+<html>
+
+<head>
+  <link href="https://fonts.googleapis.com/css?family=Oswald:200,300,400,500,600,700" rel="stylesheet" type="text/css" />
+  <link rel=stylesheet type=text/css href="{{ url_for('static', filename='styles.css') }}">
+
+</head>
+
+<body>
+
+  <div class="col-md-2 text-right">
+    <a href="{{url_for('gdisconnect')}}" style="font-size:16;text-align:right;position:absolute; top:15; right:15;">Signout</a>
+  </div>
+  <center>
+    <h1>Category List</h1> {% with messages = get_flashed_messages() %} {% if messages %}
+
+    <ul>
+      {% for message in messages %}
+      <li><strong>{{message}}</strong></li>
+      {% endfor %}
+    </ul>
+    {% endif %} {% endwith %}
+    <a href='{{url_for("newCategory") }}' style="font-size:15;margin-top:15px;">Create New Category</a> {% for i in items %}
+
+    <div>
+      <p>{{i.id}}. {{i.name}} <a href='{{url_for("categoryList", category_id = i.id) }}'>View</a>
+        <a href='{{url_for("editCategory", category_id = i.id) }}'>Edit</a>
+        <a href='{{url_for("deleteCategory", category_id = i.id) }}'>Delete</a>
+      </p>
+    </div>
+    <br> {% endfor %}
+    <center>
+</body>
+
+</html>

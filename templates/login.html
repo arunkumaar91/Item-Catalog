@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <link href="https://fonts.googleapis.com/css?family=Oswald:200,300,400,500,600,700" rel="stylesheet" type="text/css" />
+  <link rel=stylesheet type=text/css href="{{url_for('static',filename='styles.css')}}" />
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+  <script src="//apis.google.com/js/platform.js?onload=start"></script>
+</head>
+
+<body>
+  <center>
+    <div id="flash">
+      {% with messages = get_flashed_messages() %} {% if messages %}
+      <ul>
+        {% for message in messages %}
+        <li><strong>{{message}}</strong></li>
+        {% endfor %}
+      </ul>
+      {% endif %} {% endwith %}
+    </div>
+    <div id="signInButton">
+      <span class="g-signin"
+        data-scope="openid email"
+        data-clientid="12200947982-l0vm679vjqkenk8i23u68gcpgbdg8j01.apps.googleusercontent.com"
+        data-redirecturi="postmessage"
+        data-accesstype="offline"
+        data-cookiepolicy="single_host_origin"
+        data-callback="signInCallback"
+        data-approvalprompt="force">
+      </span>
+    </div>
+
+    <div id="result"></div>
+    <center>
+      <script>
+        function signInCallback(authResult) {
+          if (authResult['code']) {
+            $('#signinButton').attr('style', 'display: none');
+            $.ajax({
+              type: 'POST',
+              url: '/gconnect?state={{STATE}}',
+              processData: false,
+              contentType: 'application/octet-stream; charset=utf-8',
+              data: authResult['code'],
+              success: function(result) {
+                if (result) {
+                  $('#result').html('Successful Login</br>' + result + '</br>Redirecting to home page...')
+                  setTimeout(function() {
+                    window.location.href = "/categories";
+                  }, 4000);
+                } else if (authResult['error']) {
+                  console.log('Error Occurred: ' + authResult['error']);
+                } else {
+                  $('#result').html('Server-Side call failed. Please check the configuration');
+                }
+              }
+            });
+          }
+        }
+      </script>
+</body>
+
+</html>

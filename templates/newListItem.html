@@ -1,0 +1,32 @@
+<html>
+
+<head>
+  <link href="https://fonts.googleapis.com/css?family=Oswald:200,300,400,500,600,700" rel="stylesheet" type="text/css" />
+  <link rel=stylesheet type=text/css href="{{url_for('static',filename='styles.css')}}" />
+</head>
+
+<body>
+  <center>
+    <div class="col-md-2 text-right">
+      <a href="{{url_for('gdisconnect')}}" style="font-size:16;text-align:right;position:absolute; top:15; right:15;">Signout</a>
+    </div>
+    <h1> New List Item </h1>
+    <form action="{{url_for('newListItems', category_id=category_id )}}" method='POST'>
+      <p>Name:</p>
+      <input type='text' size='40' name='name'>
+      <p>Description:</p>
+      <input type='text' size='250' name='description'>
+      <p>Price:</p>
+      <input type='text' size='20' name='price'>
+      <p>Sub-Category:</p>
+      <input type="radio" name="subcategory" value="HouseHold" checked>HouseHold<br>
+      <input type="radio" name="subcategory" value="Apparels">Apparels<br>
+      <input type="radio" name="subcategory" value="Baby Care">Baby Care<br>
+      <input type="radio" name="subcategory" value="Gaming">Gaming<br>
+      <input type='submit' value='Create'>
+    </form>
+    <a href="{{ url_for('categoryList', category_id = category_id)}}"> Cancel </a>
+  </center>
+</body>
+
+</html>

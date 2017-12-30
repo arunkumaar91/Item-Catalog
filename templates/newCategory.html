@@ -1,0 +1,36 @@
+<html>
+
+<head>
+  <link href="https://fonts.googleapis.com/css?family=Oswald:200,300,400,500,600,700" rel="stylesheet" type="text/css" />
+  <link rel=stylesheet type=text/css href="{{url_for('static',filename='styles.css')}}" />
+</head>
+
+<body>
+  <center>
+    <div class="col-md-2 text-right">
+      <a href="{{url_for('gdisconnect')}}" style="font-size:16;text-align:right;position:absolute; top:15; right:15;">SignOut</a>
+    </div>
+    <h1>Create Category</h1> {% with messages = get_flashed_messages() %} {% if messages %}
+    <ul>
+      {% for message in messages %}
+      <li><strong>{{message}}</strong></li>
+      {% endfor %}
+    </ul>
+    {% endif %} {% endwith %}
+
+    <form action="{{url_for('newCategory')}}" method='POST'>
+
+      <p>Name:</p>
+
+      <input type='text' size='40' name='name'>
+
+      <p>ID:</p>
+
+      <input type='text' size='5' name='id'>
+
+      <input type='submit' value='Create'>
+    </form>
+  </center>
+</body>
+
+</html>

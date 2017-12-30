@@ -1,0 +1,62 @@
+<html>
+
+<head>
+  <link href="https://fonts.googleapis.com/css?family=Oswald:200,300,400,500,600,700" rel="stylesheet" type="text/css" />
+  <link rel=stylesheet type=text/css href="{{url_for('static',filename='styles.css')}}" />
+</head>
+
+<body>
+  <center>
+    {% block content %}
+
+    <div class="row top-list">
+      <div class="col-md-10"></div>
+      <div class="col-md-2 text-right">
+        <a href="{{url_for('showLogin')}}" style="font-size:16;text-align:right;position:absolute; top:15; right:15;">SignIn</a>
+      </div>
+    </div>
+
+    <div class="row divider blue">
+      <div class="col-md-12"></div>
+    </div>
+
+    <div class="row banner main">
+      <div class="col-md-1"></div>
+      <div class="col-md-11 padding-none">
+        <h1>Categories</h1>
+      </div>
+    </div>
+
+    <div class='flash'>
+      {% with messages = get_flashed_messages() %} {% if messages %}
+
+      <ul>
+        {% for message in messages %}
+        <li> <strong> {{ message }} </strong> </li>
+        {% endfor %}
+      </ul>
+      {% endif %} {% endwith %}
+    </div>
+
+    <div class="row padding-top padding-bottom">
+      <div class="col-md-1"></div>
+      <div class="col-md-10 padding-none"></div>
+      <div class="col-md-1"></div>
+    </div>
+
+    {% for category in categories %}
+    <a href="{{url_for('categoryList', category_id = category.id)}}">
+      <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-10 category-list">
+          <h3>{{category.name}}</h3>
+        </div>
+        <div class="col-md-1"></div>
+      </div>
+    </a>
+
+    {% endfor %} {% endblock %}
+  </center>
+</body>
+
+</html>

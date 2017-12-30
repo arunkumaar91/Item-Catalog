@@ -1,0 +1,77 @@
+<html>
+
+<head>
+  <link href="https://fonts.googleapis.com/css?family=Oswald:200,300,400,500,600,700" rel="stylesheet" type="text/css" />
+  <link rel=stylesheet type=text/css href="{{url_for('static',filename='styles.css')}}">
+</head>
+
+<body>
+  <center>
+    <div class="col-md-2 text-right">
+      <a href="{{url_for('gdisconnect')}}" style="font-size:16;text-align:right;position:absolute; top:15; right:15;">Signout</a>
+    </div>
+    <h1>{{category.name}}</h1> {% with messages = get_flashed_messages() %} {% if messages %}
+
+    <ul>
+      {% for message in messages %}
+      <li><strong>{{message}}</strong></li>
+      {% endfor %}
+    </ul>
+    {% endif %} {% endwith %}
+
+    <a href="{{url_for('newListItems', category_id = category.id) }}" style="font-size:15;margin-top:10;">Create New List Item</a> {% if items !=[] %}
+    <div class="row">
+      <div class="col-md-1"></div>
+
+      <div class="col-md-3">
+        <h2>HouseHold</h2> {% for i in items %} {% if i.subcategory == 'HouseHold' %}
+        <div class="list-item">
+          <h3>{{i.name}}</h3>
+          <p>{{i.description}}</p>
+          <p class="list-price">{{i.price}}</p>
+          <a href="{{url_for('editListItems', category_id = category.id, list_id = i.id) }}">Edit</a>
+          <a href="{{url_for('deleteListItems', category_id = category.id, list_id = i.id ) }}">Delete</a>
+        </div>
+        {% endif %} {% endfor %}
+      </div>
+
+      <div class="col-md-4">
+        <h2>Apparels</h2> {% for i in items %} {% if i.subcategory == 'Apparels' %}
+        <div class="list-item">
+          <h3>{{i.name}}</h3>
+          <p>{{i.description}}</p>
+          <p class="list-price">{{i.price}}</p>
+          <a href="{{url_for('editListItems', category_id = category.id, list_id = i.id) }}">Edit</a>
+          <a href="{{url_for('deleteListItems', category_id = category.id, list_id = i.id ) }}">Delete</a>
+        </div>
+        {% endif %} {% endfor %}
+      </div>
+
+      <div class="col-md-3">
+        <h2>Baby Care</h2> {% for i in items %} {% if i.subcategory == 'Baby Care' %}
+        <div class="list-item">
+          <h3>{{i.name}}</h3>
+          <p>{{i.description}}</p>
+          <p class="list-price">{{i.price}}</p>
+          <a href="{{url_for('editListItems', category_id = category.id, list_id = i.id) }}">Edit</a>
+          <a href="{{url_for('deleteListItems', category_id = category.id, list_id = i.id ) }}">Delete</a>
+        </div>
+        {% endif %} {% endfor %}
+      </div>
+
+      <h2>Gaming</h2> {% for i in items %} {% if i.subcategory == 'Gaming' %}
+      <div class="list-item">
+        <h3>{{i.name}}</h3>
+        <p>{{i.description}}</p>
+        <p class="list-price">{{i.price}}</p>
+        <a href="{{url_for('editListItems', category_id = category.id, list_id = i.id) }}">Edit</a>
+        <a href="{{url_for('deleteListItems', category_id = category.id, list_id = i.id ) }}">Delete</a>
+      </div>
+      {% endif %} {% endfor %}
+      <div class="col-md-1"></div>
+    </div>
+    {% endif %}
+  </center>
+</body>
+
+</html>
